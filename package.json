@@ -1,29 +1,25 @@
 {
-  "name": "fullstackreact",
+  "name": "FullStackReact",
   "version": "1.0.0",
-  "description": "React Full-Stack App",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server"
+    "start": "node api/index.js"
   },
+  "proxy": "http://localhost:3001",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seking31/FullStackReact.git"
   },
-  "author": "Sara King",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/seking31/FullStackReact/issues"
   },
   "homepage": "https://github.com/seking31/FullStackReact#readme",
   "dependencies": {
-    "config": "^3.3.6",
-    "express": "^4.17.1",
-    "express-validator": "^6.12.1"
-  },
-  "devDependencies": {
-    "concurrently": "^6.2.0",
-    "nodemon": "^2.0.12"
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
   }
 }
