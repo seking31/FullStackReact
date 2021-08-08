@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node api/index.js",
-    "dev": "nodemon",
-    "test": "jest --watch"
-  },
-  "proxy": "http://localhost:3001",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seking31/FullStackReact.git"
@@ -20,12 +15,5 @@
     "url": "https://github.com/seking31/FullStackReact/issues"
   },
   "homepage": "https://github.com/seking31/FullStackReact#readme",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "jest": "^27.0.6",
-    "supertest": "^6.1.4"
-  },
   "devDependencies": {}
 }

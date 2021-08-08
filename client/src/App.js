@@ -1,24 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import "./App.css";
-import "./SearchBar"
 import SearchBar from "./SearchBar";
 
 function App() {
-  const [articles, setArticles] = React.useState();
+  const [articles, setArticles] = useState(undefined);
+  const [searchQuery, setSearchQuery] = useState();
 
   React.useEffect(() => {
-    fetch("/articles")
-      .then((res) => res.json())
-      .then((data) => setArticles([...data]));
+    if (articles === undefined) {
+      axios
+        .get("/articles")
+        .then((data) => setArticles([...data.data]));
+    }
   }, []);
-
-
 
   return (
     <div className="page-container">
       <div className="content-wrap"></div>
       <header className="header-container">
-        <SearchBar />
+        <SearchBar searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setArticles={setArticles}
+        />
       </header>
       {articles ? articles.map((article, i) =>
         <div className="box-container">
