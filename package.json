@@ -20,6 +20,9 @@
   "homepage": "https://github.com/seking31/FullStackReact#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "express": "^4.17.1"
-  }
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.6"
+  },
+  "devDependencies": {}
 }

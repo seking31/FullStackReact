@@ -1,21 +1,24 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const [data, setData] = React.useState();
+  const [articles, setArticles] = React.useState();
 
   React.useEffect(() => {
-    fetch("/api")
+    fetch("/articles")
       .then((res) => res.json())
-       .then((res) => setData((res)));
+       .then((data) => setArticles([...data]));
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
+      { articles ? articles.map((article, i) => 
+      <div>
+        <h1>{article.title}</h1>
+        <h2>{article.author}</h2>
+        <h3>{article.description}</h3>
+      </div>) : 'loading'  }
       </header>
     </div>
   );
