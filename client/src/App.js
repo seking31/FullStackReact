@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import "./SearchBar"
+import SearchBar from "./SearchBar";
 
 function App() {
   const [articles, setArticles] = React.useState();
@@ -7,19 +9,29 @@ function App() {
   React.useEffect(() => {
     fetch("/articles")
       .then((res) => res.json())
-       .then((data) => setArticles([...data]));
+      .then((data) => setArticles([...data]));
   }, []);
 
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-      { articles ? articles.map((article, i) => 
-      <div>
-        <h1>{article.title}</h1>
-        <h2>{article.author}</h2>
-        <h3>{article.description}</h3>
-      </div>) : 'loading'  }
+    <div className="page-container">
+      <div className="content-wrap"></div>
+      <header className="header-container">
+        <SearchBar />
       </header>
+      {articles ? articles.map((article, i) =>
+        <div className="box-container">
+          <div className="card-body">
+            <h2 className="card-title">{article.title}</h2>
+            <h2>{article.author}</h2>
+            <p className="card-text">{article.description}</p>
+            <a href={article.url}>
+              <img src={article.urlToImage} alt={article.name} />
+            </a>
+          </div>
+        </div>) : '...LOADING'}
+
     </div>
   );
 }
