@@ -9,7 +9,7 @@ npm run test
 
 ## EXPRESS
 
-cd in to client
+cd in to api
 npm i
 npm run start
 npm run test 
