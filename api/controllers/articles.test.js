@@ -7,24 +7,48 @@ const app = express();
 
 describe('GET /articles', () => {
   it('fetches successfully data from an API', (done) => {
-    app.get('/articles', function(req, res) {
+    app.get('/articles', function (req, res) {
       res.status(200).json();
     });
 
     request(app)
-    .get('/articles')
-    .expect('Content-Type', /json/)
-    .expect(200, done);
+      .get('/articles')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
   });
- 
+
   it('fetches erroneously data from an API', (done) => {
-    app.get('/articles', function(req, res) {
+    app.get('/articles', function (req, res) {
       res.status(404);
     });
 
     request(app)
-    .get('/fail')
-    .expect('Content-Type', "text/html; charset=utf-8")
-    .expect(404, done);
+      .get('/fail')
+      .expect('Content-Type', "text/html; charset=utf-8")
+      .expect(404, done);
+  });
+});
+
+describe('POST /articles', () => {
+  it('fetches successfully data from an API', (done) => {
+    app.post('/articles', function (req, res) {
+      res.status(200).json();
+    });
+
+    request(app)
+      .post('/articles')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+
+  it('fetches erroneously data from an API', (done) => {
+    app.post('/articles', function (req, res) {
+      res.status(404);
+    });
+
+    request(app)
+      .post('/fail')
+      .expect('Content-Type', "text/html; charset=utf-8")
+      .expect(404, done);
   });
 });
