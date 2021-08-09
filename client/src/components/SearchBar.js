@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const axios = require('axios');
 
 function SearchBar({ setArticles }) {
-    const [searchQuery, setSearchQuery] = useState(undefined);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,19 +14,19 @@ function SearchBar({ setArticles }) {
             .then((data) => setArticles([...data.data]));
     }
 
+
+
     return (
-        <div class="wrap">
-            <form class="search" method="post" onSubmit={handleSubmit}>
+        <div className="wrap">
+            <form className="search" method="post" onSubmit={handleSubmit}>
                 <input
-                    class="searchTerm"
+                    className="searchTerm"
                     value={searchQuery}
-                    onInput={e => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                     type="text"
-                    id="article-search"
                     placeholder="Search for Articles"
-                    name="search"
                 />
-                <button type="submit" class="searchButton">
+                <button type="submit" className="searchButton">
                     SEARCH
                 </button>
             </form>
