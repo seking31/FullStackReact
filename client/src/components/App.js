@@ -15,19 +15,20 @@ function App() {
   }, []);
 
   return (
-    <div className="page-container">
-      <div className="content-wrap"></div>
+    <div className="container">
       <SearchBar setArticles={setArticles} />
-      {articles ? articles.map((article, i) =>
-        <div className="card-body">
-          <h2 className="card-title">{article.title}</h2>
-          <h2>{article.author}</h2>
-          <p className="card-text">{article.description}</p>
-          <a href={article.url}>
-            <img src={article.urlToImage} alt={article.name} />
-          </a>
-        </div>
-      ) : '...LOADING'}
+      <div className="content-section">
+        {articles ? articles.map((article, i) =>
+          <div className="card">
+            <a href={article.url}>
+              <img src={article.urlToImage} alt={article.name} />
+            </a>
+            <h4 className="card-title">{article.title}</h4>
+            <h3>{article.author}</h3>
+            <p className="card-text">{article.description}</p>
+          </div>
+        ) : '...LOADING'}
+      </div>
     </div>
   );
 }
