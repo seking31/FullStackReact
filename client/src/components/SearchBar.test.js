@@ -1,10 +1,12 @@
 import React from "react";
 import Enzyme from "enzyme";
 import SearchBar from './SearchBar';
+import axios from 'axios';
 
 describe("SearchBar Component", () => {
     let wrapper;
     const setArticles = jest.fn();
+
 
     beforeEach(() => {
         wrapper = Enzyme.mount(<SearchBar setArticles={setArticles} />)
@@ -18,21 +20,20 @@ describe("SearchBar Component", () => {
         expect(wrapper.exists()).toBe(true);
     })
 
-    it("calls setSearchQuery onChange", () => {
-        const mockSetSearchQuery = jest.fn();
-        const mockPreventDefault = jest.fn();
-        React.useState = jest.fn(() => ["", mockSetSearchQuery])
-        wrapper = Enzyme.mount(<SearchBar setArticles={setArticles} />)
-
-        const inputBox = wrapper.find("input")
-        const mockEvent = { preventDefault: mockPreventDefault, target: { value: 'change' } }
-
-        inputBox.simulate("change", mockEvent)
-
-        expect(mockSetSearchQuery).toHaveBeenCalledWith('change')
-    })
-
     it("calls axios on submit", () => {
-        wrapper.find('button').simulate('click');
+        jest.mock("axios", () => ({
+            post: jest.fn(() => {
+                return Promise.resolve({});
+            })
+        }));
+        const mockSetSearchQuery = jest.fn();
+        React.useState = jest.fn(() => ["test", mockSetSearchQuery])
+
+        const button = wrapper.find(".search")
+        button.simulate("submit")
+
+        wrapper.update()
+
+        expect(axios.post).toHaveBeenCalledWith('/articles');
     })
 });
