@@ -3,13 +3,19 @@ import Enzyme from "enzyme";
 import SearchBar from './SearchBar';
 import axios from 'axios';
 
+jest.mock("axios", () => ({
+    post: jest.fn(() => {
+        return Promise.resolve({});
+    })
+}));
+
 describe("SearchBar Component", () => {
     let wrapper;
     const setArticles = jest.fn();
 
 
     beforeEach(() => {
-        wrapper = Enzyme.mount(<SearchBar setArticles={setArticles} />)
+        wrapper = Enzyme.shallow(<SearchBar setArticles={setArticles} />)
     });
 
     afterEach(() => {
@@ -20,20 +26,24 @@ describe("SearchBar Component", () => {
         expect(wrapper.exists()).toBe(true);
     })
 
-    it("calls axios on submit", () => {
-        jest.mock("axios", () => ({
-            post: jest.fn(() => {
-                return Promise.resolve({});
-            })
-        }));
-        const mockSetSearchQuery = jest.fn();
-        React.useState = jest.fn(() => ["test", mockSetSearchQuery])
+    it("calls axios on submit", async () => {
+        const data = [{ author: 'author', title: 'title', url: 'url' }];
+        const promiseResult = Promise.resolve({ data });
 
+        axios.post.mockReturnValue(promiseResult);
+
+        const inputBox = wrapper.find("input")
+        const mockEvent = { target: { value: 'change' } }
+
+        inputBox.simulate("change", mockEvent)
+        wrapper.find('input')
         const button = wrapper.find(".search")
+
         button.simulate("submit")
 
-        wrapper.update()
+        await promiseResult;
 
-        expect(axios.post).toHaveBeenCalledWith('/articles');
+        expect(axios.post).toHaveBeenCalledWith("/articles", { "searchQuery": "change" });
+        expect(setArticles).toHaveBeenCalledWith(data);
     })
 });

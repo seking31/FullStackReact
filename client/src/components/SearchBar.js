@@ -6,15 +6,12 @@ function SearchBar({ setArticles }) {
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleSubmit = (e) => {
-        e.preventDefault();
 
         axios.post('/articles', {
             searchQuery: searchQuery,
         })
             .then((data) => setArticles([...data.data]));
     }
-
-
 
     return (
         <div className="wrap">
