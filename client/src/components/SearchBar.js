@@ -10,7 +10,10 @@ function SearchBar({ setArticles }) {
         axios.post('/articles', {
             searchQuery: searchQuery,
         })
-            .then((data) => setArticles([...data.data]));
+            .then((data) => setArticles([...data.data]))
+            .catch((error) =>
+                console.log(error.response.data)
+            );
     }
 
     return (

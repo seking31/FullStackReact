@@ -1,18 +1,25 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import SearchBar from "./SearchBar";
 
 function App() {
   const [articles, setArticles] = useState(undefined);
 
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (articles === undefined) {
       axios
         .get("/articles")
-        .then((data) => setArticles([...data.data]));
+        .then((data) => setArticles([...data.data]))
+        .catch((error) =>
+          console.log(error.response.data)
+        );
+
     }
   }, []);
+
+
 
   return (
     <div className="container">
