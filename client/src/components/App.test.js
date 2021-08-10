@@ -2,19 +2,12 @@
 import React from "react";
 import Enzyme from "enzyme";
 import App from "./App";
-// import axios from 'axios';
-
-// jest.mock("axios", () => ({
-//   get: jest.fn(() => {
-//     return Promise.resolve({});
-//   })
-// }));
+import SearchBar from './SearchBar';
 
 describe("App Component", () => {
-  let wrapper;
+  const getWrapper = () => Enzyme.shallow(<App />)
 
   beforeEach(() => {
-    wrapper = Enzyme.mount(<App />)
   });
 
   afterEach(() => {
@@ -22,36 +15,21 @@ describe("App Component", () => {
   });
 
   it("renders", () => {
+    const wrapper = getWrapper();
     expect(wrapper.exists()).toBe(true);
   })
 
-  it("renders SearchBar", () => {
-    const input = wrapper.find(".wrap")
-    expect(input.exists()).toBe(true);
-  });
-
   it("calls axios", async () => {
-    // const data = [{author: 'author', title: 'title', url: 'url'}];
-    // const promiseResult = Promise.resolve({ data });
+    const data = [{ author: 'author', title: 'title', url: 'url' }];
 
-    // axios.get.mockReturnValue(promiseResult);
+    const wrapper = getWrapper();
 
-    // await promiseResult;
+    const { setArticles } = wrapper.find(SearchBar).props();
 
-    // expect(axios.get).toHaveBeenCalledWith("/articles");
-  });
+    setArticles(data);
+    wrapper.update();
+    const card = wrapper.find(".card")
 
-  it("renders articles", async () => {
-    // const data = [{author: 'author', title: 'title', url: 'url'}];
-    // const promiseResult = Promise.resolve({ data });
-
-    // axios.get.mockReturnValue(promiseResult);
-
-    // await promiseResult;
-    // const card = wrapper.find(".card")
-    // expect(card.exists()).toBe(true);
-  });
-
-});
-
-
+    expect((card).exists()).toBe(true);
+  })
+})

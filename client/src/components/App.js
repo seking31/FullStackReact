@@ -15,7 +15,6 @@ function App() {
         .catch((error) =>
           console.log(error.response.data)
         );
-
     }
   }, []);
 
@@ -26,7 +25,7 @@ function App() {
       <SearchBar setArticles={setArticles} />
       <div className="content-section">
         {articles ? articles.map((article, i) =>
-          <div className="card">
+          <div className="card" key={i}>
             <a href={article.url}>
               <img src={article.urlToImage} alt={article.name} />
             </a>
