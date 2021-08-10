@@ -39,7 +39,8 @@ describe("SearchBar Component", () => {
         wrapper.find('input')
         const button = wrapper.find(".search")
 
-        button.simulate("submit")
+        const event = Object.assign(jest.fn(), { preventDefault: () => { } })
+        button.simulate("submit", event)
 
         await promiseResult;
 
